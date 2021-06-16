@@ -22,9 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/login/', obtain_jwt_token),
     path('auth/refresh-token/', refresh_jwt_token),
-
-
-urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ajira.urls')),
 ]
+
+
