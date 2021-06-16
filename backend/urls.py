@@ -1,7 +1,7 @@
-"""main URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,17 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
-from django.urls import path,include
+from django.urls import include, path
+from rest_framework import routers
+from rest_framework_jwt.views import refresh_jwt_token
+
+from shopping.views import ShoppingItemViewSet
+
+router = routers.DefaultRouter()
+router.register(
+    'shopping-item', ShoppingItemViewSet, 'shopping-item'
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('', include(router.urls)),
     path('auth/', include('rest_auth.urls')),
     path('auth/signup/', include('rest_auth.registration.urls')),
     path('auth/refresh-token/', refresh_jwt_token),
-    path('admin/', admin.site.urls),
-    path('', include('ajira.urls')),
 ]
-
-
