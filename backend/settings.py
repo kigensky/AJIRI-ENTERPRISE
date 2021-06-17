@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from datetime import timedelta
+from decouple import config,Csv
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-
     'rest_framework',
 
     'allauth',
@@ -47,11 +48,6 @@ INSTALLED_APPS = [
 
     'rest_auth',
     'rest_auth.registration',
-
-    'corsheaders',
-
-    'ajira',
-    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -126,14 +122,15 @@ JWT_AUTH = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ajiri',
-        'USER': 'natasha',
-        'PASSWORD': 'natasha',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',    
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': '',
+        
     }
-}
+}      
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -153,6 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cloudinary settings
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -172,6 +170,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_URL = '/HMS/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
