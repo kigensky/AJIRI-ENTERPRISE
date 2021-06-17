@@ -45,4 +45,4 @@ class EmployeeList(APIView):
     def delete(self, request, pk, format=None):
         employee = self.get_employee(pk)
         employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTEN
+        return Response(status=status.HTTP_204_NO_CONTEN)

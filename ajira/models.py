@@ -1,3 +1,4 @@
+from ajira.views import EmployeeList
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -29,7 +30,7 @@ class Employees(models.Model):
 
     @classmethod
     def find_employee(cls, hood_id):
-      return cls.objects.filter(id=employee_id)
+      return cls.objects.filter(id=EmployeeList)
 
     @classmethod
     def update_neighborhood(cls, id, name):

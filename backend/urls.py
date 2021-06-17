@@ -13,9 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from backend.settings import STATIC_URL
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework import routers
+from rest_framework import routers, views
 from rest_framework_jwt.views import refresh_jwt_token
 
 
@@ -28,9 +29,9 @@ urlpatterns = [
     path('auth/', include('rest_auth.urls')),
     path('auth/signup/', include('rest_auth.registration.urls')),
     path('auth/refresh-token/', refresh_jwt_token),
-    #path('api/employee/',views.EmployeeList.as_view(),name='employee'),
-    #path('employee/update/<name>/',views.EmployeeList.as_view(),name='update_employee'),
-    #path('employee/delete/<int:pk>/',views.EmployeeList.as_view(),name='delete_employee'),
+    path('api/employee/',views.EmployeeList.as_view(),name='employee'),
+    path('employee/update/<name>/',views.EmployeeList.as_view(),name='update_employee'),
+    path('employee/delete/<int:pk>/',views.EmployeeList.as_view(),name='delete_employee'),
 ]
-#if settings.DEBUG:
-    #urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += STATIC_URL(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
