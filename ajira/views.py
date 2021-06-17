@@ -1,8 +1,9 @@
-from django.shortcuts import render
+
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from .models import EmployeeSalary,Profile
+from .serializers import UserSerializer,EmployeeSalarySerializer,ProfileSerializer
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -13,11 +14,22 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
-class GroupViewSet(viewsets.ModelViewSet):
+class ProfileViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows profile to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+    
+class EmployeeSalaryViewset(viewsets.ModelViewSet):
+    """
+    API endpoint that allows salary to be viewed or edited.
+    """
+    queryset = EmployeeSalary.objects.all()
+    serializer_class = EmployeeSalarySerializer
     permission_classes = [permissions.IsAuthenticated]
+    
+    
+    
+

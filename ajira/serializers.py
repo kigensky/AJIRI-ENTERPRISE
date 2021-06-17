@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .models import Profile,EmployeeSalary
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -7,8 +8,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'first_name', 'last_name', 'email', 'groups']
 
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Group
-        fields = ['url', 'name']
+        model = Profile
+        fields ="__all__"
+
+        
+class EmployeeSalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model=EmployeeSalary
+        fields="__all__"

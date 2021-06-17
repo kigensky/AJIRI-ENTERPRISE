@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-
+#from decouple import config
+#import cloudinary
+#import cloudinary.api
+#import cloudinary.uploader
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -68,6 +71,7 @@ INSTALLED_APPS = [
     'ajira.apps.AjiraConfig',
     'django.contrib.sites',
     'allauth',
+    'cloudinary',
     'allauth.account',
     'rest_auth',
     'rest_auth.registration',
@@ -109,8 +113,11 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ajira',
+        'USER': 'moringaschool',
+        'PASSWORD': 'moringa',
+        'HOST': '127.0.0.1',
     }
 }
 
@@ -133,6 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cloudinary settings
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
