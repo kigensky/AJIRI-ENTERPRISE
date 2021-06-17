@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import Profile,EmployeeSalary
 
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -18,3 +19,7 @@ class EmployeeSalarySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=EmployeeSalary
         fields="__all__"
+        
+
+
+

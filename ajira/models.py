@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 
-
 class EmployeeSalary(models.Model):
     id=models.AutoField(primary_key=True)
     #employee=models.ForeignKey(Employees,on_delete=models.CASCADE)
@@ -20,3 +19,5 @@ class Profile(models.Model):
     profile_pic= models.ImageField(upload_to='profile_pic/',)
     
     
+
+
