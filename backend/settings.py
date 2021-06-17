@@ -41,10 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-<<<<<<< HEAD:main/settings.py
-=======
-
->>>>>>> 19c3c1d125c0cf8d2e5964e98ac53a320f880723:backend/settings.py
     'rest_framework',
 
     'allauth',
@@ -52,14 +48,6 @@ INSTALLED_APPS = [
 
     'rest_auth',
     'rest_auth.registration',
-<<<<<<< HEAD:main/settings.py
-=======
-
-    'corsheaders',
-
-    'ajira',
-    'cloudinary'
->>>>>>> 19c3c1d125c0cf8d2e5964e98ac53a320f880723:backend/settings.py
 ]
 
 MIDDLEWARE = [
@@ -134,7 +122,6 @@ JWT_AUTH = {
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD:main/settings.py
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
          'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
@@ -142,14 +129,6 @@ DATABASES = {
         'HOST': config('DB_HOST'),
         'PORT': '',
         
-=======
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ajiri',
-        'USER': 'natasha',
-        'PASSWORD': 'natasha',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',    
->>>>>>> 19c3c1d125c0cf8d2e5964e98ac53a320f880723:backend/settings.py
     }
 }      
 
@@ -193,14 +172,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-<<<<<<< HEAD:main/settings.py
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-=======
-MEDIA_URL = '/HMS/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
->>>>>>> 19c3c1d125c0cf8d2e5964e98ac53a320f880723:backend/settings.py
