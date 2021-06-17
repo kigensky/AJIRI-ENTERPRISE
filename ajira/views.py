@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .models import Employees
+from .serializers import EmployeesSerializers
 from .models import *
 from .serializers import *
 from rest_framework import status
@@ -38,24 +40,9 @@ class EmployeeList(APIView):
     def delete(self, request, pk, format=None):
         employee = self.get_employee(pk)
         employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    
-    def put(self, request, name, format=None):
-        doctor = self.get_doctor(name)
-        serializers = DoctorSerializer(doctor, request.data)
-        if serializers.is_valid():
-            serializers.save()
-            doctor=serializers.data
-            response = {
-                'data': {
-                    'doctor': dict(doctor),
-                    'status': 'success',
-                    'message': 'Doctor updated successfully',
-                }
-            }
-
-
+        return Response(status=status.HTTP_204_NO_CONTEN)
+        
+ 
 class SingleEmployeeList(APIView):
      def get(self, request, pk, format=None):
         employee = Employees.objects.get(pk=pk)
