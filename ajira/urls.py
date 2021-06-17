@@ -5,10 +5,10 @@ from .import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'profile',views.ProfileViewSet)
-router.register("employee_all_salary",views.EmployeeSalaryViewset,basename="employee_all_salary")
+router.register(r'employee_salary',views.EmployeeSalaryViewset)
 
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    #path('api/profile/',views.ProfileList.as_view(),name='profile'),
+    
 ]

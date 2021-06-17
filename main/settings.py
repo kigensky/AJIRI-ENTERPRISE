@@ -12,10 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-#from decouple import config
-#import cloudinary
-#import cloudinary.api
-#import cloudinary.uploader
+from decouple import config,Csv
+import os
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -71,7 +70,6 @@ INSTALLED_APPS = [
     'ajira.apps.AjiraConfig',
     'django.contrib.sites',
     'allauth',
-    'cloudinary',
     'allauth.account',
     'rest_auth',
     'rest_auth.registration',
@@ -114,12 +112,14 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ajira',
-        'USER': 'moringaschool',
-        'PASSWORD': 'moringa',
-        'HOST': '127.0.0.1',
+         'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': '',
+        
     }
-}
+}      
 
 
 # Password validation
@@ -164,7 +164,10 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

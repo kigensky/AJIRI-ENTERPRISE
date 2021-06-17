@@ -8,13 +8,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'first_name', 'last_name', 'email', 'groups']
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         fields ="__all__"
 
         
-class EmployeeSalarySerializer(serializers.ModelSerializer):
+class EmployeeSalarySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=EmployeeSalary
         fields="__all__"
