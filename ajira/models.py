@@ -25,7 +25,7 @@ class Employees(models.Model):
       self.save()
 
     def delete_employee(self):
-       self.delete()
+      self.delete()
 
     @classmethod
     def find_employee(cls, employee_id):
