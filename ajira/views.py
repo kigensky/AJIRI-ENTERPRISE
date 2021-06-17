@@ -13,13 +13,6 @@ from django.http import Http404
 class EmployeeList(APIView):
     serializer_class = EmployeesSerializers
 
-    def get_employee(self,pk):
-        try:
-            return Employees.objects.get(pk=pk)
-        except Employees.DoesNotExist:
-            return Http404()
-
-
     
     def get(self, request, format=None):
         employees = Employees.objects.all()
@@ -48,3 +41,29 @@ class EmployeeList(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     
+    def put(self, request, name, format=None):
+        doctor = self.get_doctor(name)
+        serializers = DoctorSerializer(doctor, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            doctor=serializers.data
+            response = {
+                'data': {
+                    'doctor': dict(doctor),
+                    'status': 'success',
+                    'message': 'Doctor updated successfully',
+                }
+            }
+
+
+class SingleEmployeeList(APIView):
+     def get(self, request, pk, format=None):
+        employee = Employees.objects.get(pk=pk)
+        serializers =EmployeesSerializers(employee)
+        return Response(serializers.data)
+
+     def delete(self, request, pk, format=None):
+        employee = Employees.objects.get(pk=pk)
+        serializers =EmployeesSerializers(employee)
+        employee.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
