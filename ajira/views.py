@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Employees
 from .serializers import EmployeesSerializers
+from .models import *
+from .serializers import *
 from rest_framework import status
 from django.http import response
 from django.http import Http404
@@ -46,3 +48,6 @@ class EmployeeList(APIView):
         employee = self.get_employee(pk)
         employee.delete()
         return Response(status=status.HTTP_204_NO_CONTEN)
+        
+
+    

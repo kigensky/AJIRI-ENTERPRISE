@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'ajira',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [

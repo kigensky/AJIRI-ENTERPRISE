@@ -31,10 +31,13 @@ class Employees(models.Model):
     @classmethod
     def find_employee(cls, hood_id):
       return cls.objects.filter(id=EmployeeList)
+      return cls.objects.filter(id=employee_id)
 
     @classmethod
     def update_neighborhood(cls, id, name):
       update = cls.objects.filter(id=id).update(name=name)
       return update
+
+
 
 
