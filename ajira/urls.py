@@ -15,7 +15,6 @@ urlpatterns=[
   #leave
   path('api/leave/',views.EmployeeList.as_view(),name='employee'),
   path('leave/update/<name>/',views.EmployeeList.as_view(),name='update_employee'),
-  path('employee/delete/<int:pk>/',views.EmployeeList.as_view(),name='delete_employee'),
   
 ]
 

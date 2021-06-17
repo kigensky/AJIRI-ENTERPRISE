@@ -40,7 +40,20 @@ class EmployeeList(APIView):
         employee.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+    
+    def put(self, request, name, format=None):
+        doctor = self.get_doctor(name)
+        serializers = DoctorSerializer(doctor, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            doctor=serializers.data
+            response = {
+                'data': {
+                    'doctor': dict(doctor),
+                    'status': 'success',
+                    'message': 'Doctor updated successfully',
+                }
+            }
 
 
 class SingleEmployeeList(APIView):
