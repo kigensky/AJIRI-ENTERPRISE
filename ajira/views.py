@@ -1,119 +1,53 @@
-from django.shortcuts import render
+
+from django.contrib.auth.models import User
+from django.http import response
+from rest_framework import viewsets
+from rest_framework import permissions
 from rest_framework.views import APIView
+from .models import Employee, EmployeeSalary,Profile,Leave
 from rest_framework.response import Response
-from .models import *
+from django.http import Http404
 from .serializers import *
 from rest_framework import status
-from django.http import response
-from django.http import Http404
+from .serializers import EmployeeSerializer, UserSerializer,EmployeeSalarySerializer,ProfileSerializer,LeaveSerializer
 
 # Create your views here.
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-
-class EmployeeList(APIView):
-    serializer_class = EmployeesSerializers
-
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows profile to be viewed or edited.
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
     
-    def get(self, request, format=None):
-        employees = Employees.objects.all()
-        serializers = self.serializer_class(employees, many=True)
-        return Response(serializers.data)
-
-
-    def post(self, request, format=None):
-        serializers = self.serializer_class(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            employees = serializers.data
-            response = {
-                'data': {
-                    'employees': dict(employees),
-                    'status':'success',
-                    'message': 'employee created successfully ',
-                }
-            }
-            return Response(response, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        employee = self.get_employee(pk)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
+class EmployeeSalaryViewset(viewsets.ModelViewSet):
+    """
+    API endpoint that allows salary to be viewed or edited.
+    """
+    queryset = EmployeeSalary.objects.all()
+    serializer_class = EmployeeSalarySerializer
+    permission_classes = [permissions.IsAuthenticated]
     
-    def put(self, request, name, format=None):
-        employee = self.get_employee(name)
-        serializers = EmployeesSerializers(employee, request.data)
-        if serializers.is_valid():
-            serializers.save()
-            employee=serializers.data
-            response = {
-                'data': {
-                    'employee': dict(employee),
-                    'status': 'success',
-                    'message': 'Employee updated successfully',
-                }
-            }
-
-
-class SingleEmployeeList(APIView):
-     def get(self, request, pk, format=None):
-        employee = Employees.objects.get(pk=pk)
-        serializers =EmployeesSerializers(employee)
-        return Response(serializers.data)
-
-     def delete(self, request, pk, format=None):
-        employee = Employees.objects.get(pk=pk)
-        serializers =EmployeesSerializers(employee)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class LeaveList(APIView):
-    serializer_class = LeaveSerializers
-
+class EmployeeViewset(viewsets.ModelViewSet):
+    """
+    API endpoint that lists employees.
+    """
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    permission_classes = [permissions.IsAuthenticated]
     
-    def get(self, request, format=None):
-        leave = Leave.objects.all()
-        serializers = self.serializer_class(leave, many=True)
-        return Response(serializers.data)
-
-
-    def post(self, request, format=None):
-        serializers = self.serializer_class(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            leave = serializers.data
-            response = {
-                'data': {
-                    'leave': dict(leave),
-                    'status':'success',
-                    'message': 'leave created successfully ',
-                }
-            }
-            return Response(response, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        employee = self.get_employee(pk)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class SingleLeaveEmployeeList(APIView):
-     def get(self, request, pk, format=None):
-        employee = Employees.objects.get(pk=pk)
-        serializers =LeaveSerializers(leave)
-        return Response(serializers.data)
-
-     def delete(self, request, pk, format=None):
-        employee = Employees.objects.get(pk=pk)
-        serializers =EmployeesSerializers(employee)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class List(APIView):
-  def get_patient(self, pk):
-    try:
-        return Patient.objects.get(pk=pk)
-    except Patient.DoesNotExist:
-        return Http404()
+class LeaveViewset(viewsets.ModelViewSet):
+    """
+    API endpoint shows employees leave dates.
+    """
+    queryset = Leave.objects.all()
+    serializer_class = LeaveSerializer
+    permission_classes = [permissions.IsAuthenticated]

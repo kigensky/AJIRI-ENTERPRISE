@@ -1,19 +1,31 @@
-from django.db import models
-from django.db.models import fields
-from .models import  Employees,Leave
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from django import forms
+from .models import Employee, Leave, Profile,EmployeeSalary
 
 
-class EmployeesSerializers(serializers.ModelSerializer):
-  class Meta:
-    model = Employees
-    fields = "__all__"
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'first_name', 'last_name', 'email']
 
-class LeaveSerializers(serializers.ModelSerializer):
-  class Meta: 
-    model = Leave
-    fields = "__all__"
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Profile
+        fields ="__all__"
 
+        
+class EmployeeSalarySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model=EmployeeSalary
+        fields="__all__"
+        
+class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Employee
+        fields = "__all__"
 
+class LeaveSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta: 
+        model = Leave
+        fields = "__all__"
