@@ -12,7 +12,7 @@ class EmployeesSerializers(serializers.ModelSerializer):
 
 
 class LeaveSerializers(serializers.ModelSerializer):
-  class Meta:
+  class Meta: 
     model = Leave
     fields = "__all__"
 
