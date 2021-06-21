@@ -28,7 +28,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('rest_auth.urls')),
     path('auth/signup/', include('rest_auth.registration.urls')),
-    path('api-token-auth/', obtain_jwt_token),
-    path('api-token-refresh/', refresh_jwt_token),
     
 ]
