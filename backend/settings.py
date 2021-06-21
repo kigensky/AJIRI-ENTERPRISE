@@ -88,36 +88,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Cors settings
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
-)
+
+
 
 # allauth
 
-SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 
 # REST Framework settings
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
 
-# JWT settings
 
-REST_USE_JWT = True
 
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=10),
-}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
