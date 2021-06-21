@@ -1,53 +1,73 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Employees
-from .serializers import EmployeesSerializers
-from .models import *
-from .serializers import *
-from rest_framework import status
-from django.http import response
-from django.http import Http404
+from rest_framework.exceptions import AuthenticationFailed
+from .serializers import UserSerializer
+from .models import User
+import jwt, datetime
+
 
 # Create your views here.
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
-class EmployeeList(APIView):
-    serializer_class = EmployeesSerializers
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
 
-    def get_employee(self,pk):
+        user = User.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
+
+class UserView(APIView):
+
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
         try:
-            return Employees.objects.get(pk=pk)
-        except Employees.DoesNotExist:
-            return Http404()
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = User.objects.filter(id=payload['id']).first()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
 
-    
-    def get(self, request, format=None):
-        employees = Employees.objects.all()
-        serializers = self.serializer_class(employees, many=True)
-        return Response(serializers.data)
-
-
-    def post(self, request, format=None):
-        serializers = self.serializer_class(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            employees = serializers.data
-            response = {
-                'data': {
-                    'employees': dict(employees),
-                    'status':'success',
-                    'message': 'employee created successfully ',
-                }
-            }
-            return Response(response, status=status.HTTP_200_OK)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        employee = self.get_employee(pk)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTEN)
-        
-
-    
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+        return response

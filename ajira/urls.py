@@ -1,17 +1,9 @@
-from . import views
-from django.conf import settings
-from django.urls import path, re_path
-from django.conf.urls.static import static
+from django.urls import path
+from .views import RegisterView, LoginView, UserView, LogoutView
 
-
-urlpatterns=[
-  #employees urls
-  path('api/employee/',views.EmployeeList.as_view(),name='employee'),
-  path('employee/update/<name>/',views.EmployeeList.as_view(),name='update_employee'),
-  path('employee/delete/<int:pk>/',views.EmployeeList.as_view(),name='delete_employee'),
-  
+urlpatterns = [
+    path('register', RegisterView.as_view()),
+    path('login', LoginView.as_view()),
+    path('user', UserView.as_view()),
+    path('logout', LogoutView.as_view()),
 ]
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
