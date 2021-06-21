@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from rest_framework import response
 from ajira.serializers import UserSerializer
 from rest_framework import serializers
 from rest_framework.views import APIView  
@@ -65,3 +66,13 @@ class UserView(APIView):
         serializer = UserSerializer(user)
 
         return Response(serializer.data)
+
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+
+        return response
