@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # REST Framework settings
 
-AUTH_USER_MODEL = "ajira. indication of extended table"
+
 
 
 
@@ -157,3 +157,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/HMS/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AUTH_USER_MODEL = 'users.User'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
