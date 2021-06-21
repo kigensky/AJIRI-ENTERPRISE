@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # REST Framework settings
 
-
+AUTH_USER_MODEL = "ajira. indication of extended table"
 
 
 
