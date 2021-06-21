@@ -17,7 +17,7 @@ from backend.settings import STATIC_URL
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers, views
-from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 
 
