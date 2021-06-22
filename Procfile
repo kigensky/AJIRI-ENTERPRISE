@@ -1,0 +1,1 @@
+web: gunicorn ajira.wsgi --log-file -
