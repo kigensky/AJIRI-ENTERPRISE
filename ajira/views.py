@@ -36,7 +36,7 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token =  jwt.encode(payload, 'secret', algorithm='HS256')
+        token =  jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         respone = Response()
 
@@ -50,6 +50,7 @@ class LoginView(APIView):
         return respone
 
 class UserView(APIView):
+
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -57,14 +58,12 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithm='[HS256]')
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
         user = User.objects.filter(id=payload['id']).first()
-
         serializer = UserSerializer(user)
-
         return Response(serializer.data)
 
 class LogoutView(APIView):
