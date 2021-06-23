@@ -1,11 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
-from django.contrib.auth.models import User
+
+
 
 # Create your models here.
+class UserCustomManager(UserManager):
+  def create_superuser(self, email=None, password=None, **kwargs):
+    if not email:
+      raise TypeError("superusers must have an email")
+    if not password:
+      raise TypeError("superuser must have a password")
+    user = self.model(email=email)
+    user.is_staff = True
+    user.is_superuser = True
+    user.is_active = True
+    user.set_password(password)   
+    user.save()
+    
+    
+
+
 class User(AbstractUser):
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
@@ -14,8 +31,9 @@ class User(AbstractUser):
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    
-  
+    objects = UserCustomManager()
+
+
 
 class Employee(models.Model):
     employee_name = models.CharField(max_length=50)

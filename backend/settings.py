@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'ajira'
+    'ajira',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES':(
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

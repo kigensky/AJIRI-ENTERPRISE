@@ -19,10 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'first_name', 'last_name', 'email']
+
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile

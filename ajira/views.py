@@ -21,22 +21,26 @@ from rest_framework import status
 from .serializers import EmployeeSerializer, UserSerializer,EmployeeSalarySerializer,ProfileSerializer,LeaveSerializer
 
 
+
 # Create your views here.
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        print("serializer.data", serializer.data)
         return Response(serializer.data)
+        
 
 class LoginView(APIView):
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
-
+        print("email", email)
+        print("password", password)
 
         user = User.objects.filter(email=email).first()
-
+        print("user", user)
         if user is None:
             raise AuthenticationFailed('User not found!')
         if not user.check_password(password):
@@ -47,7 +51,9 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token =  jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+        token =  jwt.encode(payload, 'secret', algorithm='HS256')
+        
+
 
         respone = Response()
 
@@ -69,7 +75,7 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
