@@ -19,7 +19,7 @@ from django.http import Http404
 from .serializers import *
 from rest_framework import status
 from .serializers import EmployeeSerializer, UserSerializer,EmployeeSalarySerializer,ProfileSerializer,LeaveSerializer
-
+from django.conf import settings
 
 
 # Create your views here.
@@ -51,13 +51,13 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token =  jwt.encode(payload, 'secret', algorithm='HS256')
+        token =  jwt.encode(payload, settings.JWT_SECRET, algorithm='HS256')
         
 
 
         respone = Response()
 
-        respone.set_cookie(key='jwt', value=token, httponly=True)
+        # respone.set_cookie(key='jwt', value=token, httponly=True)
 
         respone.data = {
             'jwt': token
@@ -67,26 +67,26 @@ class LoginView(APIView):
         return respone
 
 class UserView(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        # token = request.COOKIES.get('jwt')
 
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
+        # if not token:
+        #     raise AuthenticationFailed('Unauthenticated!')
 
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
+        # try:
+        #     payload = jwt.decode(token, settings.JWT_SECRET, algorithms=['HS256'])
+        # except jwt.ExpiredSignatureError:
+        #     raise AuthenticationFailed('Unauthenticated!')
 
-        user = User.objects.filter(id=payload['id']).first()
-        serializer = UserSerializer(user)
+        # user = User.objects.filter(id=payload['id']).first()
+        serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
-        response.delete_cookie('jwt')
+        # response.delete_cookie('jwt')
         response.data = {
             'message': 'success'
         }

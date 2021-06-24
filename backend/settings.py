@@ -59,7 +59,7 @@ ROOT_URLCONF = 'backend.urls'
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES':(
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#         'ajira.authentications.JWTAuthentication',
 #     )
 # }
 TEMPLATES = [
@@ -139,3 +139,5 @@ AUTH_USER_MODEL = 'ajira.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+JWT_SECRET = 'secret'
