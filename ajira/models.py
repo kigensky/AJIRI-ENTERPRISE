@@ -7,6 +7,10 @@ from django.db import models
 
 
 # Create your models here.
+departments=[('Human Resource','Human Resource'),
+('Marketing','Marketing'),
+('Accounting','Accounting'),
+]
 class UserCustomManager(UserManager):
   def create_superuser(self, email=None, password=None, **kwargs):
     if not email:
