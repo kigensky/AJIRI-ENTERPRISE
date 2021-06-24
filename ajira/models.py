@@ -37,7 +37,7 @@ class User(AbstractUser):
 
 class Employee(models.Model):
     employee_name = models.CharField(max_length=50)
-    # department = models.CharField(max_length=20, choices=departments,default='Marketing')
+    department = models.CharField(max_length=20, choices=departments,default='Marketing')
     address = models.TextField(max_length=50)
     status = models.CharField(max_length=20)
     job_title = models.CharField(max_length=50)
