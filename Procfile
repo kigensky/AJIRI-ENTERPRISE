@@ -1,1 +1,3 @@
-web: gunicorn ajira.wsgi --log-file -
+web: gunicorn ajira.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
