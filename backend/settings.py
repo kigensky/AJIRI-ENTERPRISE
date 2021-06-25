@@ -67,7 +67,7 @@ REST_FRAMEWORK = {
     )
 }
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'ajira.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'backend.settings'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
