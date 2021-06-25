@@ -1,1 +1,1 @@
-web: gunicorn ajira.wsgi:application --log-file - --log-level debug
+web: gunicorn --bind 0.0.0.0:$PORT ajira.wsgi
