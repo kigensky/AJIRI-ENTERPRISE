@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'ajira'
+    'ajira',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES':(
+#         'ajira.authentications.JWTAuthentication',
+#     )
+# }
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -134,3 +139,5 @@ AUTH_USER_MODEL = 'ajira.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+JWT_SECRET = 'secret'
