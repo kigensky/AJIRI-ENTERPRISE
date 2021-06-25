@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import dj_database_url
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'rbbsrr_6ii0)5-j3bd(wzgw4r9k!9mjo-c919e3j$3rh=u^t7h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -96,6 +97,8 @@ DATABASES = {
         'PORT': '5432',    
     }
 }
+
+
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
