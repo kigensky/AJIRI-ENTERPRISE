@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'ajira',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -60,11 +60,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES':(
-#         'ajira.authentications.JWTAuthentication',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'ajira.authentications.JWTAuthentication',
+    )
+}
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ajira.settings'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -99,7 +101,8 @@ DATABASES = {
 }
 
 
-
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 CORS_ORIGIN_WHITELIST = (
