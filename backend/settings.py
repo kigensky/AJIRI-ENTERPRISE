@@ -84,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ajira.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
