@@ -40,3 +40,9 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
 
         return (user, token)
+  
+
+
+
+
+

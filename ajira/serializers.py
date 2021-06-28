@@ -35,4 +35,4 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
 class LeaveSerializer(serializers.HyperlinkedModelSerializer):
     class Meta: 
         model = Leave
-        fields = "__all__"  
+        fields = "__all__"       
