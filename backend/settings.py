@@ -42,11 +42,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 ROOT_URLCONF = 'backend.urls'
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES':(
-#         'ajira.authentications.JWTAuthentication',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'ajira.authentications.JWTAuthentication',
+    )
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

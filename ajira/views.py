@@ -107,6 +107,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
+    
 class EmployeeSalaryViewset(viewsets.ModelViewSet):
     """
     API endpoint that allows salary to be viewed or edited.
@@ -114,6 +115,8 @@ class EmployeeSalaryViewset(viewsets.ModelViewSet):
     queryset = EmployeeSalary.objects.all()
     serializer_class = EmployeeSalarySerializer
     permission_classes = [permissions.IsAuthenticated]
+    
+    
 class EmployeeViewset(viewsets.ModelViewSet):
     """
     API endpoint that lists employees.

@@ -24,14 +24,17 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         fields ="__all__"
+        
 class EmployeeSalarySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model=EmployeeSalary
-        fields="__all__"
+        fields= ("employee_name", "salary_date", "salary_amount") 
+        
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Employee
         fields = "__all__"
+        
 class LeaveSerializer(serializers.HyperlinkedModelSerializer):
     class Meta: 
         model = Leave
