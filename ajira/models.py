@@ -62,7 +62,6 @@ class Employee(models.Model):
       
       
 class EmployeeSalary(models.Model):
-    
     employee_name=models.CharField(max_length=255)
     salary_date=models.DateField()
     salary_amount=models.CharField(max_length=255)
@@ -109,8 +108,6 @@ class Leave(models.Model):
     m = (
         ("January","January"),("February","February"),("March","March"),("April","April"),("May","May"),("June","June"),("July","July"),("August","August"),("September","September"),("October","October"),("November","November"),("December","december")
     )
-    month = models.CharField(max_length=10, choices= m)
-    year = models.IntegerField()
     Start_Date = models.DateField()
     End_Date = models.DateField(null=True, blank = True)
     Reason = models.CharField(max_length=200)

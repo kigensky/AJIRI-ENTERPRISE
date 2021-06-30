@@ -20,22 +20,22 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields ="__all__"
         
-class EmployeeSalarySerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeSalarySerializer(serializers.ModelSerializer):
     class Meta:
         model=EmployeeSalary
-        fields= ("employee_name", "salary_date", "salary_amount") 
+        fields= "__all__"
         
-class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = "__all__"
         
-class LeaveSerializer(serializers.HyperlinkedModelSerializer):
+class LeaveSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Leave
         fields = "__all__"       
